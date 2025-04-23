@@ -10,7 +10,16 @@ public:
     AVLNode *right;
     AVLNode *parent;
 
-    // need a AVLNode constructor here?
+    // need an AVL node constructor
+    AVLNode(int val, AVLNode *par = nullptr)
+    {
+        value = val; // integer storing in node
+        height = 1;
+        // shouldn't be pointing to any children in constructor
+        left = nullptr;
+        right = nullptr;
+        parent = par; // pointer to the node's parent
+    }
 };
 
 class AVLTree
@@ -18,12 +27,28 @@ class AVLTree
 private:
     AVLNode *root;
 
-    // if we want to do recursive -- helper, main functions here
-    // need a insert node, delete node, rotate left, rotate right, rebalance
-    // get height, get balance factor, printing function
+    // recursive helpers here
+    AVLNode *insertNode(AVLNode *node, int value, AVLNode *parent); // note: pass the parent pointer
+    AVLNode *removeNode(AVLNode *node, int value);
+
+    AVLNode *rotateLeft(AVLNode *node);
+    AVLNode *rotateRight(AVLNode *node);
+
+    AVLNode *rebalance(AVLNode *node);
+    int getHeight(AVLNode *node);
+    int getBalanceFactor(AVLNode *node);
+    void printInOrder(AVLNode *node);
 
 public:
-    // need a constructor and destructor for the avl tree
+    // need a constructor and destructor for the avl tree??
+    AVLTree();
+    ~AVLTree();
+
+    // public operations (will call recursive helpers, tree.insert(20) will call insertNode(root, 25))
+    void insert(int value);
+    void remove(int value);
+    void printTree();
+    AVLNode *getRoot(); // this is to make testing easier
 };
 
 #endif
