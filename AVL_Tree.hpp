@@ -38,6 +38,7 @@ private:
     int getHeight(AVLNode *node);
     int getBalanceFactor(AVLNode *node);
     void printInOrder(AVLNode *node);
+    void destroyTree(AVLNode *node);
 
 public:
     // need a constructor and destructor for the avl tree??
