@@ -119,7 +119,7 @@ AVLNode *AVLTree::removeNode(AVLNode *node, int value)
         {
             // find in order successor (left most -- smallest-- value int he right subtree)
             AVLNode *in_order_successor = node->right;
-            while (in_order_successor != nullptr) // means it hasn't reached smallest value
+            while (in_order_successor->left != nullptr) // means it hasn't reached smallest value
             {
                 in_order_successor = in_order_successor->left; // continue left to reach smallest value
             }

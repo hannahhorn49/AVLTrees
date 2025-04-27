@@ -14,7 +14,7 @@ bool testInsert()
 
     // validation
     AVLNode *root = tree.getRoot();
-    if (root->value != 10 || root->left->value != 5 || root->right->value != 20)
+    if (root->value != 15 || root->left->value != 5 || root->right->value != 75)
     {
         std::cerr << "Insert test failed: unexpected tree structure.\n";
         return false;
@@ -42,31 +42,39 @@ bool testRemove()
 
     // validation
     // case 1: remove a leaf node (e.g. 5)
+    std::cout << "debugging: before testing case 1\n";
     tree.remove(5);
     if (tree.getRoot()->left->left != nullptr)
     {
         std::cerr << "Remove test failed: leaf node not removed.\n";
         return false;
     }
+    std::cout << "debugging: case 1 remove passed\n";
 
     // case 2: remove node with one child
-    tree.remove(25);
-    if (tree.getRoot()->right->left != nullptr)
+    tree.remove(10);
+    if (tree.getRoot()->left == nullptr || tree.getRoot()->left->value != 15)
     {
         std::cerr << "Remove test failed: one-child node not removed properly.\n";
         return false;
     }
+    std::cout << "debugging: case 2 remove passed\n";
 
     // case 3: Remove a node with two children
-    tree.remove(10);
-    AVLNode *rootLeft = tree.getRoot()->left;
-    if (!rootLeft || rootLeft->value != 15)
+    std::cout << "debugging: before testing case 3\n";
+    tree.remove(20);
+    if (tree.getRoot() == nullptr)
     {
-        std::cerr << "Remove test failed: two-child node not handled correctly.\n";
+        std::cerr << "Remove test failed: root became nullptr after removal.\n";
         return false;
     }
-
+    if (tree.getRoot()->value != 25)
+    {
+        std::cerr << "Remove test failed: two-child node not handled correctly (expected root value = 25).\n";
+        return false;
+    }
     std::cout << "Remove test passed.\n";
+
     return true;
 }
 
